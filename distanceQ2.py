@@ -72,6 +72,84 @@ class disQ2(object):
         doMWdbscan.computeDBSCAN()
         doMWdbscan.getCatFromLabelArray(doClean=True)
 
+    def find_nearestIndex(self,a, a0):
+        "Element in nd array `a` closest to the scalar value `a0`"
 
 
 
+        idx = np.abs(a - a0).argmin()
+        return  idx
+
+    def mergeByVaxis(self,fits1,fits2,outPut="mergedCube.fits"):
+        """
+        #takes two fits files, and merge them together, to see if the SASMA can process this large data
+        we merge the local and the perseus arm file,
+
+        :param fits1:
+        :param fits2:
+        :param outPut:
+        :return:
+        """
+
+        #find the fits, that has the lowerest velocity, and append is to the
+
+        data1,head1=doFITS.readFITS(fits1)
+
+        data2,head2=doFITS.readFITS(fits2)
+
+
+        spec1, vaxis1 = doFITS.getSpectraByIndex(data1, head1,0,0)
+        spec2, vaxis2 = doFITS.getSpectraByIndex(data2, head2,0,0)
+
+
+
+        if vaxis1[0]< vaxis2[0]:
+
+            lowData,  lowHead=data1,head1
+            highData, highHead=data2, head2
+
+            lowSpec,lowVaxis=spec1,vaxis1
+            highSpec, highVaxis=spec2,vaxis2
+
+        else:
+
+
+            lowData,  lowHead=data2, head2
+            highData, highHead=data1, head1
+
+            lowSpec,lowVaxis=spec2,vaxis2
+            highSpec, highVaxis=spec1,vaxis1
+
+
+        #process low and high
+
+
+
+        maxVlow= lowVaxis[-1]
+
+        minVHigh = highVaxis[0]
+
+
+        #find and middle position
+
+        middleV= ( maxVlow+  minVHigh )/2.
+
+        mergeIndexLow= self.find_nearestIndex(lowVaxis,middleV)
+
+        mergeV=lowVaxis[mergeIndexLow]
+
+        part1data  =  lowData[0:mergeIndexLow]
+
+        mergeIndexHigh= self.find_nearestIndex(highVaxis,mergeV)
+
+        part2data = highData[mergeIndexHigh:]
+
+        if highVaxis[mergeIndexHigh] !=mergeV:
+            print "Two fits has different cooridnate at velocity, cannot do direct merge, exist... "
+            return
+
+        print "Merging at {:.3f} km/s".format(mergeV)
+
+        mergeData= np.vstack([part1data,part2data])
+
+        fits.writeto( self.rawDataPath+outPut, mergeData , header=lowHead, overwrite=True)
