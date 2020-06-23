@@ -13,6 +13,17 @@ class disQ2(object):
     rawDataPath ="/home/qzyan/WORK/diskMWISP/MWISPData/G100150/"
     tmpPath="/home/qzyan/WORK/diskMWISP/MWISPData/G105150Tmp/" #tmpFiles,need a large data area
 
+    if os.path.isdir(rawDataPath):
+        pass
+
+    else: #
+
+        self.rawDataPath = "./dataPath/"
+        self.tmpPath = "./tmpPath/"
+
+
+
+
     rawCO12FITSLocal = rawDataPath  + "100_150_U_local.fits"
     rawCO12RMSfits = rawDataPath + "100_150_U_rms.fits"
     rawCO12FITSPer = rawDataPath  + "100_150_U_per.fits"
@@ -31,6 +42,8 @@ class disQ2(object):
 
 
     def __init__(self):
+        #check server environments
+
         pass
 
 
