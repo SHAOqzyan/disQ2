@@ -18,8 +18,8 @@ class disQ2(object):
 
     else: #
 
-        self.rawDataPath = "./dataPath/"
-        self.tmpPath = "./tmpPath/"
+        rawDataPath = "./dataPath/"
+        tmpPath = "./tmpPath/"
 
 
 
