@@ -3,13 +3,13 @@ from distanceQ2 import disQ2
 doQ2=disQ2()
 
 
-if 1:
+if 0:
     doQ2.getCleanFITS()
 
 
-if 0:
+if 1:
     pass
-    doQ2.processDBSCAN( doQ2.mergeFITS )
+    doQ2.processDBSCAN( doQ2.mergeFITS, cutoff_sigma=3 )
 
 
 if 0: #crop fits

@@ -59,20 +59,19 @@ class disQ2(object):
         doFITS.cropFITS2D( self.rawCO12RMSfits, Lrange=self.lRange,Brange=self.bRange, overWrite=True,outFITS=self.cropRawCO12RMSfits )
 
 
-    def processDBSCAN(self,coFITS):
+    def processDBSCAN(self,coFITS, cutoff_sigma=2,minPts=4,connectivity=1):
 
 
 
         doMWdbscan.rawCOFITS =  coFITS
         doMWdbscan.rmsFITS = self.cropRawCO12RMSfits
 
-        doMWdbscan.setDBSCANParameters( cutoff_sigma=2,minPts=4,connectivity=1)
+        doMWdbscan.setDBSCANParameters( cutoff_sigma=cutoff_sigma,minPts=minPts,connectivity=connectivity)
         doMWdbscan.processPath = self.tmpPath
 
         doMWdbscan.computeDBSCAN()
         doMWdbscan.getCatFromLabelArray(doClean=True)
-
-        doMWdbscan.cleanTB()
+        doMWdbscan.produceCleanFITS()
 
 
     def find_nearestIndex(self,a, a0):
