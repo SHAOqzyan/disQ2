@@ -23,7 +23,7 @@ class disQ2(object):
 
 
 
-
+    mergeFITS= rawDataPath+"mergedCube.fits"
     rawCO12FITSLocal = rawDataPath  + "100_150_U_local.fits"
     rawCO12RMSfits = rawDataPath + "100_150_U_rms.fits"
     rawCO12FITSPer = rawDataPath  + "100_150_U_per.fits"
