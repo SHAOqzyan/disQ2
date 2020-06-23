@@ -4,6 +4,10 @@ doQ2=disQ2()
 
 
 if 1:
+    doQ2.getCleanFITS()
+
+
+if 0:
     pass
     doQ2.processDBSCAN( doQ2.mergeFITS )
 

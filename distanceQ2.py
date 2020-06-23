@@ -72,6 +72,9 @@ class disQ2(object):
         doMWdbscan.computeDBSCAN()
         doMWdbscan.getCatFromLabelArray(doClean=True)
 
+        doMWdbscan.cleanTB()
+
+
     def find_nearestIndex(self,a, a0):
         "Element in nd array `a` closest to the scalar value `a0`"
 
@@ -153,3 +156,19 @@ class disQ2(object):
         mergeData= np.vstack([part1data,part2data])
 
         fits.writeto( self.rawDataPath+outPut, mergeData , header=lowHead, overwrite=True)
+
+
+
+    def getCleanFITS(self ):
+        """
+
+        :param rawDBSCANLabel:
+        :param cleanTB:
+        :return:
+        """
+
+
+        doMWdbscan.labelFITSName=self.tmpPath +  "mergedCubedbscanS2P4Con1.fits"
+        doMWdbscan.cleanCatName=self.tmpPath + "mergedCubedbscanS2P4Con1_Clean.fit"
+
+        doMWdbscan.produceCleanFITS()
