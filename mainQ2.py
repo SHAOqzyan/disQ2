@@ -2,7 +2,7 @@
 from distanceQ2 import disQ2
 doQ2=disQ2()
 
-if 0: #crop fits
+if 1: #crop fits
     doQ2.prepareData()
 
 
